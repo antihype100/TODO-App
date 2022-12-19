@@ -1,16 +1,16 @@
 import React from 'react';
 import './TasksFilter.css'
-const TasksFilter = () => {
+const TasksFilter = ({filterActiveTask, filterAllTask, filterCompletedTask}) => {
     return (
         <ul className="filters">
             <li>
-                <button className="selected">All</button>
+                <button className="selected" onClick={filterAllTask}>All</button>
             </li>
             <li>
-                <button>Active</button>
+                <button onClick={filterActiveTask}>Active</button>
             </li>
             <li>
-                <button>Completed</button>
+                <button onClick={filterCompletedTask}>Completed</button>
             </li>
         </ul>
     )

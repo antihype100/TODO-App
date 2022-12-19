@@ -4,21 +4,56 @@ import './TaskList.css';
 
 const TaskList = (props) => {
 
-    const element = props.todos.map((task) => {
-        const {id, ...taskProps} = task;
+    const filterFunc = function() {
+        if (props.filterStatus === 'Active') {
+            return props.activeTask.map((task) => {
+                const {id, ...taskProps} = task;
 
-        return (
-            <li key={id}>
-                <Task {...taskProps} onDelete={() => props.onDelete(id)}/>
-            </li>
-        );
+                return (
+                    <li key={id}>
+                        <Task {...taskProps}
+                              onDelete={() => props.onDelete(id)}
+                              doneTask={() => props.doneTask(id)}
+                        />
+                    </li>
+                );
 
-    });
+            });
+        } else if (props.filterStatus === 'All') {
+            return props.todos.map((task) => {
+                const {id, ...taskProps} = task;
+
+                return (
+                    <li key={id}>
+                        <Task {...taskProps}
+                              onDelete={() => props.onDelete(id)}
+                              doneTask={() => props.doneTask(id)}
+                        />
+                    </li>
+                );
+
+            });
+        } else {
+            return props.comletedTask.map((task) => {
+                const {id, ...taskProps} = task;
+
+                return (
+                    <li key={id}>
+                        <Task {...taskProps}
+                              onDelete={() => props.onDelete(id)}
+                              doneTask={() => props.doneTask(id)}
+                        />
+                    </li>
+                );
+
+            });
+        }
+    }
 
 
     return (
         <ul className="todo-list">
-            {element}
+            {filterFunc()}
         </ul>
     );
 
