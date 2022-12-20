@@ -1,11 +1,22 @@
 import React, {Component} from 'react';
 import './Footer.css'
 import TasksFilter from '../TasksFilter/TasksFilter';
+import PropTypes from 'prop-types';
+
 class Footer extends Component{
+
+    static defaultProps = {
+        filterStatus: 'All',
+        countTask: 0
+    }
+
+    static propTypes = {
+        filterStatus: PropTypes.string,
+        countTask: PropTypes.number
+    }
 
     state = {
         filter: 'All'
-
     }
 
     filterCompletedTask = () => {
@@ -46,6 +57,7 @@ class Footer extends Component{
             <footer className="footer">
                 <span className="todo-count">{countTask} items left</span>
                 <TasksFilter filter={this.state.filter}
+                             tabStatus={this.state.filter}
                              filterAllTask={this.filterAllTask}
                              filterCompletedTask={this.filterCompletedTask}
                              filterActiveTask={this.filterActiveTask}

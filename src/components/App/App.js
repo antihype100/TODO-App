@@ -5,15 +5,28 @@ import TaskList from '../TaskList/TaskList';
 import Footer from '../Footer/Footer';
 import NewTaskForm from '../NewTaskForm/NewTaskForm';
 
+
 class App extends Component {
 
 
     idx = 100;
     state = {
         todoData: [
-            {id: 1,taskName: 'Completed task', taskTime: 'created 17 seconds ago',done: false, },
-            {id: 2, taskName: 'Active task', taskTime: 'created 17 seconds ago', done: false,},
-            {id: 3, taskName: 'Active task', taskTime: 'created 17 seconds ago', done: false,}
+            {id: 1,
+                taskName: 'Completed task',
+                taskTime: new Date(),
+                done: false
+            },
+            {id: 2,
+                taskName: 'Active task',
+                taskTime: new Date(),
+                done: false
+            },
+            {id: 3,
+                taskName: 'Active task',
+                taskTime: new Date(),
+                done: false
+            }
         ],
         activeTask: [],
         completedTask: [],
@@ -22,22 +35,22 @@ class App extends Component {
 
     deleteTask = (id) => {
         this.setState(({todoData}) => {
+
             const idx = todoData.findIndex((el) => el.id === id);
-            const newArr = [...todoData.slice(0, idx), ...todoData.slice(idx + 1)];
+            const todoDataArr = [...todoData.slice(0, idx), ...todoData.slice(idx + 1)];
 
             return {
-                todoData: newArr
+                todoData: todoDataArr,
             };
         });
     };
 
-    addTask = (text, data) => {
+    addTask = (text) => {
         const newTask = [{
             id: this.idx++,
             taskName: text,
-            taskTime: data,
-            visible: true,
-            important: false
+            taskTime: new Date(),
+            done: false
         }];
         this.setState(({todoData}) => {
             const newArr = [...todoData, ...newTask];
@@ -94,6 +107,7 @@ class App extends Component {
             }
         })
     }
+
     render() {
         return (
             <section className="todoapp">

@@ -2,11 +2,13 @@ import React, {Component} from 'react';
 import './NewTaskForm.css'
 class NewTaskForm extends Component {
 
+
+
     state = {
         label: ''
     }
 
-    onLabelChage = (e) => {
+    onLabelChange = (e) => {
         this.setState({
             label: e.target.value
         })
@@ -30,7 +32,7 @@ class NewTaskForm extends Component {
                        type='text'
                        className='new-todo'
                        value={this.state.label}
-                       onChange={this.onLabelChage}
+                       onChange={this.onLabelChange}
                 />
             </form>
         )
