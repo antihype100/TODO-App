@@ -1,1 +1,3 @@
-Я теперь ненавижу Eslint и Prettier
+Я ТЕПЕРЬ НЕНАВИЖУ ESLINT И PRETTIER
+
+https://todo-app-rayhatr3drus.vercel.app/
