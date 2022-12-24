@@ -41,8 +41,9 @@ class NewTaskForm extends Component {
 
   onClickEnter = (e) => {
     if (e.keyCode === 13) {
-      if (this.state.title != "" && this.state.min !== "" && this.state.sec !== "") {
-        this.props.addTask(this.state.title, this.state.min, this.state.sec)
+      if (this.state.title !== "" && this.state.min !== "" && this.state.sec !== "") {
+        this.props.addTask(this.state.title, parseInt(this.state.min) * 60 + parseInt(this.state.sec))
+
         this.setState({
           title: "",
           min: "",

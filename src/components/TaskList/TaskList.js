@@ -4,7 +4,7 @@ import Task from "../Task/Task"
 import "./TaskList.css"
 
 class TaskList extends Component {
-  filterFunc = function() {
+  filterFunc = () => {
     if (this.props.filterStatus === "Active") {
       return this.props.activeTask.map((task) => {
         const { id, ...taskProps } = task
@@ -57,6 +57,7 @@ class TaskList extends Component {
   }
 
   render() {
+
     return <ul className="todo-list">{this.filterFunc()}</ul>
   }
 }

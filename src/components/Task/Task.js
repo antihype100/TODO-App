@@ -31,9 +31,7 @@ class Task extends Component {
           <span className="description">
                   <button className="icon icon-play" onClick={this.props.startTimer}></button>
                   <button className="icon icon-pause" onClick={this.props.stopTimer}></button>
-            <span>{this.props.min}</span>
-            <span>:</span>
-            <span>{this.props.sec}</span>
+            <span>{`${Math.floor(this.props.time / 60).toString().padStart(2, "0")}:${Math.floor(this.props.time % 60).toString().padStart(2, "0")}`}</span>
                 </span>
           <span className="created">{taskTime}</span>
         </label>
