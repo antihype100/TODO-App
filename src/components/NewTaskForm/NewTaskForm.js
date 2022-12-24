@@ -1,42 +1,88 @@
-import React, {Component} from 'react';
-import './NewTaskForm.css'
+import React, { Component } from "react"
+import "./NewTaskForm.css"
+
 class NewTaskForm extends Component {
 
 
+  state = {
+    min: "",
+    sec: "",
+    title: ""
+  }
 
-    state = {
-        label: ''
+
+  onLabelChangeTitle = (e) => {
+    this.setState({
+      title: e.target.value
+    })
+  }
+  onLabelChangeMin = (e) => {
+    this.setState({
+      min: e.target.value
+    })
+  }
+  onLabelChangeSec = (e) => {
+    this.setState({
+      sec: e.target.value
+    })
+  }
+  onSubmit = (e) => {
+    console.log(e.target.value)
+    e.preventDefault()
+    if (this.state.title === "") {
+      return
     }
 
-    onLabelChange = (e) => {
+    this.props.addTask(this.state.title, this.state.min, this.state.sec)
+    this.setState({
+      title: ""
+    })
+  }
+
+  onClickEnter = (e) => {
+    if (e.keyCode === 13) {
+      if (this.state.title != "" && this.state.min !== "" && this.state.sec !== "") {
+        this.props.addTask(this.state.title, this.state.min, this.state.sec)
         this.setState({
-            label: e.target.value
+          title: "",
+          min: "",
+          sec: ""
         })
-    }
-    onSubmit = (e) => {
-        e.preventDefault()
-        if (this.state.label === '') {
-            return
-        }
-        this.props.addTask(this.state.label, new Date().toDateString())
-        this.setState({
-            label: ''
-        })
-    }
+      }
 
-    render() {
-        return (
-            <form onSubmit={this.onSubmit}>
-                <input placeholder='What needs to be done?'
-                       autoFocus
-                       type='text'
-                       className='new-todo'
-                       value={this.state.label}
-                       onChange={this.onLabelChange}
-                />
-            </form>
-        )
+
     }
+  }
+
+  render() {
+    return (
+
+      <form className="new-todo-form" onKeyDown={(e) => this.onClickEnter(e)}>
+        <input placeholder="What needs to be done?"
+               autoFocus
+               type="text"
+               value={this.state.title}
+               className="new-todo"
+               onChange={this.onLabelChangeTitle}
+        />
+        <input type="text"
+               className="new-todo-form__timer"
+               placeholder="Min"
+               value={this.state.min}
+               onChange={this.onLabelChangeMin}
+
+        />
+        <input type="text"
+               className="new-todo-form__timer"
+               placeholder="Sec"
+               value={this.state.sec}
+               onChange={this.onLabelChangeSec}
+
+        />
+
+      </form>
+    )
+  }
 
 }
 

@@ -1,34 +1,51 @@
-import React, {Component} from 'react';
-import './Task.css';
-import {formatDistanceToNow} from 'date-fns';
+import React, { Component } from "react"
+import "./Task.css"
+import { formatDistanceToNow } from "date-fns"
 
-const Task = ({ done, doneTask, taskName, taskTime, onDelete}) => {
+class Task extends Component {
+
+  state = {}
 
 
+  className = "title"
 
-    taskTime = formatDistanceToNow(taskTime)
-    let className = 'view'
-    if (done) {
-        className += ' completed'
+
+  render() {
+    let taskTime = formatDistanceToNow(this.props.taskTime)
+    if (this.props.done) {
+      this.className += " completed"
     }
-    if (taskTime === 'less than a minute')  {
-        taskTime = 'created less 30 seconds ago'
-    } else if (taskTime.includes('minute')) {
-        taskTime = `created ${taskTime.split(' ')[0]} minutes ago`
-    } else if (taskTime.includes('hours')) {
-        taskTime = `created ${taskTime.split(' ')[0]} hours ago`
+    if (taskTime === "less than a minute") {
+      taskTime = "less 30 seconds ago"
+    } else if (taskTime.includes("minute")) {
+      taskTime = `created ${taskTime.split(" ")[0]} minutes ago`
+    } else if (taskTime.includes("hours")) {
+      taskTime = `created ${taskTime.split(" ")[0]} hours ago`
     }
     return (
-        <div className={className}>
-            <input className="toggle" type="checkbox" onClick={doneTask}/>
-            <label>
-                <span className='description'>{ taskName }</span>
-                <span className="created">{ taskTime}</span>
-            </label>
-            <button className="icon icon-edit"></button>
-            <button className="icon icon-destroy" onClick={onDelete}></button>
-        </div>
-    );
+
+      <div className="view">
+        <input className="toggle" type="checkbox" onClick={this.props.doneTask} />
+        <label>
+          <span className={this.className}>{this.props.taskName}</span>
+          <span className="description">
+                  <button className="icon icon-play" onClick={this.props.startTimer}></button>
+                  <button className="icon icon-pause" onClick={this.props.stopTimer}></button>
+            <span>{this.props.min}</span>
+            <span>:</span>
+            <span>{this.props.sec}</span>
+                </span>
+          <span className="created">{taskTime}</span>
+        </label>
+        <button className="icon icon-edit"></button>
+        <button className="icon icon-destroy" onClick={this.props.onDelete}></button>
+      </div>
+
+
+    )
+  }
+
+
 }
 
-export default Task;
+export default Task
