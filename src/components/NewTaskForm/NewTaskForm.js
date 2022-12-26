@@ -1,89 +1,74 @@
-import React, { Component } from "react"
+import React, { useState } from "react"
 import "./NewTaskForm.css"
 
-class NewTaskForm extends Component {
+const NewTaskForm = (props) => {
+
+  const { addTask } = props
+  const [min, setMin] = useState("")
+  const [sec, setSec] = useState("")
+  const [title, setTitle] = useState("")
 
 
-  state = {
-    min: "",
-    sec: "",
-    title: ""
+  const onLabelChangeTitle = (e) => {
+    setTitle(e.target.value)
   }
-
-
-  onLabelChangeTitle = (e) => {
-    this.setState({
-      title: e.target.value
-    })
+  const onLabelChangeMin = (e) => {
+    setMin(e.target.value)
   }
-  onLabelChangeMin = (e) => {
-    this.setState({
-      min: e.target.value
-    })
+  const onLabelChangeSec = (e) => {
+    setSec(e.target.value)
   }
-  onLabelChangeSec = (e) => {
-    this.setState({
-      sec: e.target.value
-    })
-  }
-  onSubmit = (e) => {
+  const onSubmit = (e) => {
     console.log(e.target.value)
     e.preventDefault()
-    if (this.state.title === "") {
+    if (title === "") {
       return
     }
-
-    this.props.addTask(this.state.title, this.state.min, this.state.sec)
-    this.setState({
-      title: ""
-    })
+    addTask(title, min, sec)
+    setTitle("")
   }
 
-  onClickEnter = (e) => {
+  const onClickEnter = (e) => {
     if (e.keyCode === 13) {
-      if (this.state.title !== "" && this.state.min !== "" && this.state.sec !== "") {
-        this.props.addTask(this.state.title, parseInt(this.state.min) * 60 + parseInt(this.state.sec))
-
-        this.setState({
-          title: "",
-          min: "",
-          sec: ""
-        })
+      if (title !== "" && min !== "" && sec !== "") {
+        addTask(title, parseInt(min) * 60 + parseInt(sec))
+        setTitle("")
+        setMin("")
+        setSec("")
       }
 
 
     }
   }
 
-  render() {
-    return (
 
-      <form className="new-todo-form" onKeyDown={(e) => this.onClickEnter(e)}>
-        <input placeholder="What needs to be done?"
-               autoFocus
-               type="text"
-               value={this.state.title}
-               className="new-todo"
-               onChange={this.onLabelChangeTitle}
-        />
-        <input type="text"
-               className="new-todo-form__timer"
-               placeholder="Min"
-               value={this.state.min}
-               onChange={this.onLabelChangeMin}
+  return (
 
-        />
-        <input type="text"
-               className="new-todo-form__timer"
-               placeholder="Sec"
-               value={this.state.sec}
-               onChange={this.onLabelChangeSec}
+    <form className="new-todo-form" onKeyDown={(e) => onClickEnter(e)}>
+      <input placeholder="What needs to be done?"
+             autoFocus
+             type="text"
+             value={title}
+             className="new-todo"
+             onChange={onLabelChangeTitle}
+      />
+      <input type="text"
+             className="new-todo-form__timer"
+             placeholder="Min"
+             value={min}
+             onChange={onLabelChangeMin}
 
-        />
+      />
+      <input type="text"
+             className="new-todo-form__timer"
+             placeholder="Sec"
+             value={sec}
+             onChange={onLabelChangeSec}
 
-      </form>
-    )
-  }
+      />
+
+    </form>
+  )
 
 }
 

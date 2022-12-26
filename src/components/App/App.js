@@ -4,8 +4,6 @@ import Header from "../Header/Header"
 import TaskList from "../TaskList/TaskList"
 import Footer from "../Footer/Footer"
 import NewTaskForm from "../NewTaskForm/NewTaskForm"
-import task from "../Task/Task"
-
 
 class App extends Component {
 
@@ -80,6 +78,7 @@ class App extends Component {
   }
 
   doneTask = (id) => {
+    console.log(10)
     this.setState(({ todoData }) => {
       const idx = todoData.findIndex((el) => el.id === id)
       const newObj = [{ ...todoData[idx], done: !todoData[idx].done }]
@@ -156,11 +155,10 @@ class App extends Component {
       <section className="main">
         <TaskList todos={this.state.todoData}
                   activeTask={this.state.activeTask}
-                  comletedTask={this.state.completedTask}
+                  completedTask={this.state.completedTask}
                   onDelete={this.deleteTask}
                   doneTask={this.doneTask}
                   filterStatus={this.state.filterStatus}
-                  min={this.state.min}
                   stopTimer={this.stopTimer}
                   startTimer={this.startTimer}
         />
